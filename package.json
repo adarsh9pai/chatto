@@ -1,6 +1,6 @@
 {
-  "name": "chat_app",
-  "version": "1.0.0",
+  "name": "Chatto",
+  "version": "0.0.1",
   "description": "A simple chat application using NodeJs and Socket.io",
   "main": "index.js",
   "scripts": {
