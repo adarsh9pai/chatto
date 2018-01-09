@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="socket.jpg">
+    <title>Socket.io Chat App</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <div class="container-fluid">
+        <div class="wrapper">
+        <div id="messageForm">
+        <div class="row">
+            <div class="col-lg-2"><h1 style="color:white;text-align:center;">Chatto.</h1></div>
+            <div class="col-lg-9">
+            <form action="">
+                <input id="msgField" autocomplete="on" type="text"/><button class="btn btn-lg" id="send"><span class="glyphicon glyphicon-send" style="font-size:20px;"aria-hidden="true"></span></button>
+            </form>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+        </div>
+    </div>
+   </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+     
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        $(function () {
+          var socket = io();
+          $('form').submit(function(){
+            socket.emit('chat message', $('#msgField').val());
+            $('#msgField').val('');
+            return false;
+          });
+          socket.on('chat message', function(msg){
+            $('#messages').append($('<li>').text(msg));
+             window.scrollTo(0, document.body.scrollHeight);
+          });
+        });
+      </script>
+
+
+  </body>
+
+  <style>
+      @import url('https://fonts.googleapis.com/css?family=Raleway');
+      html,body{
+          padding:0;
+          margin:0;
+          width:100vw;
+          height:100vh;
+          overflow-x: hidden;
+          font-family: 'Raleway', sans-serif;
+      }
+      .wrapper{
+          bottom:0;
+          position:fixed;
+          width:100vw;
+      }
+      #messageForm{
+          margin-left:-15px;
+          margin-right:-15px;
+          height:12vh;
+          background-color:#A593E0;
+          bottom:0;
+          font-size: 3vh;
+
+      }
+      #msgField{
+          width:80%;
+          margin-top:2vh;
+          height:8vh;
+          border-radius: 10px;
+          background:white;
+          margin-right:0.5vw;
+          font-family: 'Raleway', sans-serif;
+      }
+      textarea:focus, input:focus{
+    outline: none;
+     }
+
+     *:focus {
+    outline: none;
+}
+
+.btn-lg{
+    height:8vh;
+    width:10vw;
+}
+
+#send{
+    background-color: #ee7785;
+    color:white;
+}
+
+input[type="text"] { border: none }
+
+#messages {
+     list-style-type: none; 
+     margin: 0; padding: 0; 
+     width:100vw;
+     }
+#messages li { 
+    padding: 5px 10px;
+     }
+#messages li:nth-child(odd) { 
+    background: #eee; 
+    }
+  </style>
+</html>
